@@ -149,6 +149,25 @@
             {
                 "indexed": true,
                 "internalType": "address",
+                "name": "previousOwner",
+                "type": "address"
+            },
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "newOwner",
+                "type": "address"
+            }
+        ],
+        "name": "OwnershipTransferred",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
                 "name": "_withdrawer",
                 "type": "address"
             },
@@ -219,6 +238,42 @@
         "type": "event"
     },
     {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_token",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "_currentCaller",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_escrowId",
+                "type": "uint256"
+            }
+        ],
+        "name": "_withdraw",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_amount",
+                "type": "uint256"
+            }
+        ],
+        "name": "adminWithdrawToken",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
         "inputs": [],
         "name": "agentPaticipateAmount",
         "outputs": [
@@ -229,8 +284,14 @@
             }
         ],
         "stateMutability": "view",
-        "type": "function",
-        "constant": true
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "agentWithdraw",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
     },
     {
         "inputs": [
@@ -269,8 +330,25 @@
             }
         ],
         "stateMutability": "view",
-        "type": "function",
-        "constant": true
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_disputeId",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_decision",
+                "type": "uint256"
+            }
+        ],
+        "name": "applyADM",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
     },
     {
         "inputs": [],
@@ -283,8 +361,7 @@
             }
         ],
         "stateMutability": "view",
-        "type": "function",
-        "constant": true
+        "type": "function"
     },
     {
         "inputs": [],
@@ -297,8 +374,7 @@
             }
         ],
         "stateMutability": "view",
-        "type": "function",
-        "constant": true
+        "type": "function"
     },
     {
         "inputs": [],
@@ -311,8 +387,7 @@
             }
         ],
         "stateMutability": "view",
-        "type": "function",
-        "constant": true
+        "type": "function"
     },
     {
         "inputs": [],
@@ -325,8 +400,7 @@
             }
         ],
         "stateMutability": "view",
-        "type": "function",
-        "constant": true
+        "type": "function"
     },
     {
         "inputs": [],
@@ -339,8 +413,7 @@
             }
         ],
         "stateMutability": "view",
-        "type": "function",
-        "constant": true
+        "type": "function"
     },
     {
         "inputs": [],
@@ -353,8 +426,7 @@
             }
         ],
         "stateMutability": "view",
-        "type": "function",
-        "constant": true
+        "type": "function"
     },
     {
         "inputs": [
@@ -388,6 +460,11 @@
             },
             {
                 "internalType": "uint256",
+                "name": "applied_agents_count",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
                 "name": "createdAt",
                 "type": "uint256"
             },
@@ -398,8 +475,7 @@
             }
         ],
         "stateMutability": "view",
-        "type": "function",
-        "constant": true
+        "type": "function"
     },
     {
         "inputs": [
@@ -418,7 +494,7 @@
             },
             {
                 "internalType": "address",
-                "name": "buyerAdderss",
+                "name": "buyerAddress",
                 "type": "address"
             },
             {
@@ -453,8 +529,26 @@
             }
         ],
         "stateMutability": "view",
-        "type": "function",
-        "constant": true
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_merchantAddress",
+                "type": "address"
+            }
+        ],
+        "name": "getMerchantReputation",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
     },
     {
         "inputs": [],
@@ -467,23 +561,24 @@
             }
         ],
         "stateMutability": "view",
-        "type": "function",
-        "constant": true
+        "type": "function"
     },
     {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            },
+        "inputs": [],
+        "name": "maxReviewDelay",
+        "outputs": [
             {
                 "internalType": "uint256",
                 "name": "",
                 "type": "uint256"
             }
         ],
-        "name": "reviewers",
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "owner",
         "outputs": [
             {
                 "internalType": "address",
@@ -492,60 +587,11 @@
             }
         ],
         "stateMutability": "view",
-        "type": "function",
-        "constant": true
+        "type": "function"
     },
     {
         "inputs": [],
-        "name": "scoreDown",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function",
-        "constant": true
-    },
-    {
-        "inputs": [],
-        "name": "scoreUp",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function",
-        "constant": true
-    },
-    {
-        "inputs": [],
-        "name": "token",
-        "outputs": [
-            {
-                "internalType": "contract IERC20",
-                "name": "",
-                "type": "address"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function",
-        "constant": true
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "_newTokenAddress",
-                "type": "address"
-            }
-        ],
-        "name": "resetTokenAddress",
+        "name": "participate",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
@@ -554,11 +600,64 @@
         "inputs": [
             {
                 "internalType": "uint256",
-                "name": "_newInitialAgentScore",
+                "name": "_disputeId",
                 "type": "uint256"
             }
         ],
-        "name": "resetInitialAgentScore",
+        "name": "pickDispute",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_productId",
+                "type": "uint256"
+            },
+            {
+                "internalType": "address",
+                "name": "_merchantAddress",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_amount",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_escrowDisputableTime",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_escrowWithdrawableTime",
+                "type": "uint256"
+            }
+        ],
+        "name": "purchase",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "renounceOwnership",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_newAgentPaticipateAmount",
+                "type": "uint256"
+            }
+        ],
+        "name": "resetAgentPaticipateAmount",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
@@ -593,24 +692,11 @@
         "inputs": [
             {
                 "internalType": "uint256",
-                "name": "_newScoreUp",
+                "name": "_newDisputeReviewConsensusCount",
                 "type": "uint256"
             }
         ],
-        "name": "resetScoreUp",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "_newScoreDown",
-                "type": "uint256"
-            }
-        ],
-        "name": "resetScoreDown",
+        "name": "resetDisputeReviewConsensusCount",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
@@ -632,11 +718,11 @@
         "inputs": [
             {
                 "internalType": "uint256",
-                "name": "_newDisputeReviewConsensusCount",
+                "name": "_newInitialAgentScore",
                 "type": "uint256"
             }
         ],
-        "name": "resetDisputeReviewConsensusCount",
+        "name": "resetInitialAgentScore",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
@@ -645,11 +731,11 @@
         "inputs": [
             {
                 "internalType": "uint256",
-                "name": "_newAgentPaticipateAmount",
+                "name": "newMaxReviewDelay",
                 "type": "uint256"
             }
         ],
-        "name": "resetAgentPaticipateAmount",
+        "name": "resetMaxReviewDelay",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
@@ -658,31 +744,37 @@
         "inputs": [
             {
                 "internalType": "uint256",
-                "name": "_productId",
+                "name": "_newScoreDown",
                 "type": "uint256"
-            },
+            }
+        ],
+        "name": "resetScoreDown",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_newScoreUp",
+                "type": "uint256"
+            }
+        ],
+        "name": "resetScoreUp",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
             {
                 "internalType": "address",
-                "name": "_merchantAddress",
+                "name": "_newTokenAddress",
                 "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "_amount",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "_escrowWithdrawableTime",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "_escrowDisputableTime",
-                "type": "uint256"
             }
         ],
-        "name": "purchase",
+        "name": "resetTokenAddress",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
@@ -691,49 +783,61 @@
         "inputs": [
             {
                 "internalType": "uint256",
-                "name": "_escrowId",
+                "name": "",
                 "type": "uint256"
-            }
-        ],
-        "name": "withdraw",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
+            },
             {
                 "internalType": "uint256",
-                "name": "_escrowId",
+                "name": "",
                 "type": "uint256"
             }
         ],
-        "name": "dispute",
-        "outputs": [],
-        "stateMutability": "nonpayable",
+        "name": "reviewers",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
         "type": "function"
     },
     {
         "inputs": [],
-        "name": "participate",
-        "outputs": [],
-        "stateMutability": "nonpayable",
+        "name": "scoreDown",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "scoreUp",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
         "type": "function"
     },
     {
         "inputs": [
             {
                 "internalType": "uint256",
-                "name": "_disputeId",
+                "name": "_escrowId",
                 "type": "uint256"
-            },
-            {
-                "internalType": "address",
-                "name": "_agentAddress",
-                "type": "address"
             }
         ],
-        "name": "assignAgent",
+        "name": "startDispute",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
@@ -758,58 +862,39 @@
     },
     {
         "inputs": [],
-        "name": "agentWithdraw",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
+        "name": "token",
+        "outputs": [
             {
-                "internalType": "uint256",
-                "name": "_amount",
-                "type": "uint256"
+                "internalType": "address",
+                "name": "",
+                "type": "address"
             }
         ],
-        "name": "adminWithdrawToken",
-        "outputs": [],
-        "stateMutability": "nonpayable",
+        "stateMutability": "view",
         "type": "function"
     },
     {
         "inputs": [
             {
                 "internalType": "address",
-                "name": "_merchantAddress",
+                "name": "newOwner",
                 "type": "address"
             }
         ],
-        "name": "getMerchantReputation",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function",
-        "constant": true
+        "name": "transferOwnership",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
     },
     {
         "inputs": [
             {
                 "internalType": "uint256",
-                "name": "_disputeId",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "_decision",
+                "name": "_escrowId",
                 "type": "uint256"
             }
         ],
-        "name": "applyADM",
+        "name": "withdraw",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"

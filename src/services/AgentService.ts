@@ -105,15 +105,19 @@ export default class AgentService {
             console.log(agentOnContract);
             agent.score = agentOnContract.score;
             let status = null;
-            if (agentOnContract.status === '5') {
+            if (agentOnContract.status === '6') {
                 status = AgentStatus.EARNED;
-            } else if (agentOnContract.status === '6') {
-                status = AgentStatus.LOST;
             } else if (agentOnContract.status === '7') {
-                agent.status = AgentStatus.LOST;
+                status = AgentStatus.LOST;
+            } else if (agentOnContract.status === '8') {
+                status = AgentStatus.LOST;
+            } else if (agentOnContract.status === '2') {
+                status = AgentStatus.WAITING;
             }
-            agent.status = status;
-            await agent.save();
+            if (status) {
+                agent.status = status;
+                await agent.save();
+            }
         }
         return agents;
     }

@@ -6,7 +6,7 @@ import Web3 from 'web3';
 import { EventData } from 'web3-eth-contract';
 const contractAddress = process.env.ESCROW_CONTRACT_ADDRESS;
 console.log(contractAddress, 'contract address');
-const web3 = new Web3(process.env.INFURA_URL);
+const web3 = new Web3(process.env.ALCHEMY_URL);
 import OrderService from './services/OrderService';
 const orderService = new OrderService();
 
@@ -39,14 +39,29 @@ interface IResult {
 console.log('Eth Node Version: ', web3.version);
 console.log('Network: ', web3.version);
 
+const handleError = (e) => {
+    console.log('handleError', e);
+    return undefined;
+};
 const initContract = async (contractAbi, contractAddress) => {
     const contractInstance = new web3.eth.Contract(
         contractAbi,
         contractAddress
     );
 
+    // const [
+    //     dispute
+    // ] = await Promise.all([
+    //     contractInstance.methods
+    //         .disputes(5)
+    //         .call()
+    //         .catch(handleError)
+    // ]);
+
+    // console.log('dispute', dispute);
+
     contractInstance.events.allEvents(async (_: any, data: EventData) => {
-        console.log(data);
+        console.log('allEvents', data);
         if (data?.event === 'Escrowed') {
             const eventValues: IResult = data.returnValues;
             const { _from } = eventValues;
@@ -78,9 +93,27 @@ const initContract = async (contractAbi, contractAddress) => {
             _disputeId = parseInt(_disputeId);
             _escrowId = parseInt(_escrowId);
 
-            const disputeResult = await contractInstance.methods
-                .disputes(_disputeId)
-                .call();
+            const [
+                disputeResult,
+                disputeReviewGroupCount,
+                disputeReviewConsensusCount,
+            ] = await Promise.all([
+                contractInstance.methods
+                    .disputes(_disputeId)
+                    .call()
+                    .catch(handleError),
+                contractInstance.methods
+                    .disputeReviewGroupCount()
+                    .call()
+                    .catch(handleError),
+                contractInstance.methods
+                    .disputeReviewConsensusCount()
+                    .call()
+                    .catch(handleError),
+            ]);
+            // const disputeResult = await contractInstance.methods
+            //     .disputes(_disputeId)
+            //     .call();
             const { approvedCount, disapprovedCount } = disputeResult;
 
             const dbResult = await disputeService.handleDispute(
@@ -88,7 +121,9 @@ const initContract = async (contractAbi, contractAddress) => {
                 approvedCount,
                 disapprovedCount,
                 _escrowId,
-                _disputeId
+                _disputeId,
+                disputeReviewGroupCount,
+                disputeReviewConsensusCount
             );
 
             console.log('Dispute Event');
@@ -158,7 +193,7 @@ const initContract = async (contractAbi, contractAddress) => {
                     walletAddress: _agentAddress,
                     disputeId: _disputeId,
                     status:
-                        _decision === '3'
+                        _decision === '4'
                             ? AgentStatus.PENDING_01
                             : AgentStatus.PENDING_02,
                 });

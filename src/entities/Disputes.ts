@@ -45,6 +45,14 @@ export class Disputes extends BaseEntity {
     @Column()
     criteriaCount: number;
 
+    @IsNumber()
+    @Column()
+    appliedAgentsCount: number;
+
+    @IsNumber()
+    @Column()
+    disputeReviewGroupCount: number;
+
     @Column({
         type: 'enum',
         enum: DisputeStatus,

@@ -334,7 +334,9 @@ export default class DisputeService {
         approvedCount: number,
         disapprovedCount: number,
         _escrowId: number,
-        _disputeId: number
+        _disputeId: number,
+        _disputeReviewGroupCount: number,
+        _disputeReviewConsensusCount: number
     ): Promise<any> {
         const disputeRepository = getRepository(Disputes);
         const orderRepository = getRepository(Orders);
@@ -362,7 +364,9 @@ export default class DisputeService {
             approvedCount: approvedCount,
             disapprovedCount: disapprovedCount,
             reviewCount: 0,
-            criteriaCount: parseInt(process.env.CRITERIA_COUNT),
+            criteriaCount: _disputeReviewConsensusCount,
+            appliedAgentsCount: 0,
+            disputeReviewGroupCount: _disputeReviewGroupCount,
             status: DisputeStatus.INIT,
         });
         console.log('created Dispute');
@@ -383,7 +387,7 @@ export default class DisputeService {
         });
         if (!exist) return 'dispute does not exists';
 
-        if (decision === '3') {
+        if (decision === '4') {
             await connection
                 .createQueryBuilder()
                 .update(Disputes)
@@ -445,6 +449,7 @@ export default class DisputeService {
         if (!exist) return 'dispute does not exists';
 
         exist.status = DisputeStatus.REVIEW;
+        exist.appliedAgentsCount = exist.appliedAgentsCount + 1;
         await exist.save();
 
         return exist;
